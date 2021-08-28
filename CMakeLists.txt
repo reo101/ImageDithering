@@ -15,7 +15,7 @@ set(LIBRARIES_DIR
     lib
 )
 set(LIBRARIES
-    Pixel
+    Models
 )
 
 project(${PROJECT_NAME})

@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Pixel/Pixel.hpp"
+#include "Models/Pixel.hpp"
 
 int main() {
 

@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.5)
 
 set(PROJECT_NAME
-    PixelLibrary
+    ModelsLibrary
 )
 set(LIBRARY_NAME
-    Pixel
+    Models
 )
 set(LIBRARY_HEADERS_DIR
     include/${LIBRARY_NAME}
