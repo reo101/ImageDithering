@@ -11,12 +11,14 @@ set(LIBRARY_HEADERS_DIR
 )
 set(LIBRARY_HEADERS
     ${LIBRARY_HEADERS_DIR}/Pixel.hpp
+    ${LIBRARY_HEADERS_DIR}/Image.hpp
 )
 set(LIBRARY_SOURCE_DIR
     src
 )
 set(LIBRARY_SOURCE
     ${LIBRARY_SOURCE_DIR}/Pixel.cpp
+    ${LIBRARY_SOURCE_DIR}/Image.cpp
 )
 
 project(${PROJECT_NAME})

@@ -1,12 +1,20 @@
+#include <Models/Image.hpp>
+#include <Models/Pixel.hpp>
 #include <iostream>
-
-#include "Models/Pixel.hpp"
 
 int main() {
 
-    std::cout << "Pixels!!!" << std::endl;
+    size_t width = 70, height = 70;
 
-    Pixel pixel;
+    Image img(ImageType::BitMap, EncodingType::Ascii, width, height);
+
+    for (int row = 0; row < width / 2; ++row) {
+        for (int col = 0; col < height / 2; ++col) {
+            img[row * 2][col * 2] = {true};
+        }
+    }
+
+    Image::writeToFile(img, "res/test");
 
     return 0;
 }

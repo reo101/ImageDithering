@@ -1,18 +1,69 @@
 #include "Pixel.hpp"
 
-Pixel::Pixel() : R(0), G(0), B(0) {}
+#include <ostream>
 
-Pixel::Pixel(Byte R, Byte G, Byte B) : R(R), G(G), B(B) {}
+Pixel::Pixel(PixelType pixelType) : pixelType(pixelType) {
+    switch (pixelType) {
+        case PixelType::Bit:
+            this->isWhite = 0;
+            break;
+        case PixelType::Gray:
+            this->grayness = 0;
+            break;
+        case PixelType::Pix:
+            this->rgb = {0, 0, 0};
+            break;
+    }
+}
 
-Pixel::Pixel(Pixel &&pixel) : R(pixel.R), G(pixel.G), B(pixel.B) {}
+Pixel::Pixel(u1 isWhite) : pixelType(PixelType::Bit), isWhite(isWhite) {}
 
-Pixel::Pixel(const Pixel &pixel) : R(pixel.R), G(pixel.G), B(pixel.B) {}
+Pixel::Pixel(int grayness) : pixelType(PixelType::Gray), grayness(grayness) {}
+
+Pixel::Pixel(u8 R, u8 G, u8 B) : pixelType(PixelType::Pix), rgb({R, G, B}) {}
+
+Pixel::Pixel(Pixel &&pixel) : pixelType(pixel.pixelType) {
+    switch (pixel.pixelType) {
+        case PixelType::Bit:
+            this->isWhite = pixel.isWhite;
+            break;
+        case PixelType::Gray:
+            this->grayness = pixel.grayness;
+            break;
+        case PixelType::Pix:
+            this->rgb = pixel.rgb;
+            break;
+    }
+}
+
+Pixel::Pixel(const Pixel &pixel) : pixelType(pixel.pixelType) {
+    switch (pixel.pixelType) {
+        case PixelType::Bit:
+            this->isWhite = pixel.isWhite;
+            break;
+        case PixelType::Gray:
+            this->grayness = pixel.grayness;
+            break;
+        case PixelType::Pix:
+            this->rgb = pixel.rgb;
+            break;
+    }
+}
 
 Pixel &Pixel::operator=(Pixel &&pixel) {
     if (this != &pixel) {
-        this->R = pixel.R;
-        this->G = pixel.G;
-        this->B = pixel.B;
+        this->pixelType = pixel.pixelType;
+        switch (pixel.pixelType) {
+            case PixelType::Bit:
+                this->isWhite = pixel.isWhite;
+                break;
+            case PixelType::Gray:
+                this->grayness = pixel.grayness;
+                break;
+            case PixelType::Pix:
+                this->rgb = pixel.rgb;
+                break;
+        }
     }
 
     return *this;
@@ -20,34 +71,42 @@ Pixel &Pixel::operator=(Pixel &&pixel) {
 
 Pixel &Pixel::operator=(const Pixel &pixel) {
     if (this != &pixel) {
-        this->R = pixel.R;
-        this->G = pixel.G;
-        this->B = pixel.B;
+        this->pixelType = pixel.pixelType;
+        switch (pixel.pixelType) {
+            case PixelType::Bit:
+                this->isWhite = pixel.isWhite;
+                break;
+            case PixelType::Gray:
+                this->grayness = pixel.grayness;
+                break;
+            case PixelType::Pix:
+                this->rgb = pixel.rgb;
+                break;
+        }
     }
 
     return *this;
 }
 
-Byte Pixel::getR() const {
-    return this->R;
+PixelType Pixel::getPixelType() const {
+    return this->pixelType;
 }
 
-void Pixel::setR(Byte R) {
-    this->R = R;
-}
+std::ostream &operator<<(std::ostream &os, const Pixel &pixel) {
 
-Byte Pixel::getG() const {
-    return this->G;
-}
+    switch (pixel.pixelType) {
+        case PixelType::Bit:
+            os << static_cast<int>(pixel.isWhite) << '\n';
+            break;
+        case PixelType::Gray:
+            os << static_cast<int>(pixel.grayness) << '\n';
+            break;
+        case PixelType::Pix:
+            os << static_cast<int>(pixel.rgb.R) << '\t'
+               << static_cast<int>(pixel.rgb.G) << '\t'
+               << static_cast<int>(pixel.rgb.B) << '\n';
+            break;
+    }
 
-void Pixel::setG(Byte G){
-    this->G = G;
-}
-
-Byte Pixel::getB() const {
-    return this->B;
-}
-
-void Pixel::setB(Byte B) {
-    this->B = B;
+    return os;
 }
