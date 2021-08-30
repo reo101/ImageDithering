@@ -32,7 +32,7 @@ class Pixel {
     Pixel(PixelType tag = PixelType::Bit);
     Pixel(u1 isWhite);
     Pixel(int grayness); // int to prevent ambiguity
-    Pixel(u8 R, u8 G, u8 B);
+    Pixel(int R, int G, int B);
     Pixel(Pixel &&);
     Pixel(const Pixel &);
     Pixel &operator=(Pixel &&);

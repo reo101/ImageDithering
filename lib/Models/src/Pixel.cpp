@@ -18,9 +18,12 @@ Pixel::Pixel(PixelType pixelType) : pixelType(pixelType) {
 
 Pixel::Pixel(u1 isWhite) : pixelType(PixelType::Bit), isWhite(isWhite) {}
 
-Pixel::Pixel(int grayness) : pixelType(PixelType::Gray), grayness(grayness) {}
+Pixel::Pixel(int grayness)
+    : pixelType(PixelType::Gray), grayness(static_cast<u8>(grayness)) {}
 
-Pixel::Pixel(u8 R, u8 G, u8 B) : pixelType(PixelType::Pix), rgb({R, G, B}) {}
+Pixel::Pixel(int R, int G, int B)
+    : pixelType(PixelType::Pix),
+      rgb({static_cast<u8>(R), static_cast<u8>(G), static_cast<u8>(B)}) {}
 
 Pixel::Pixel(Pixel &&pixel) : pixelType(pixel.pixelType) {
     switch (pixel.pixelType) {
